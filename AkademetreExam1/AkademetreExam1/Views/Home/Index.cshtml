@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <form id="myForm">
+    <label for="name">İsim:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="surname">Soyisim:</label>
+    <input type="text" id="surname" name="surname" required>
+
+    <label for="address">Adres:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+        <button type="button" onclick="listedData()">Add</button>
+        <button type="button" onclick="generateExcel()">Download</button>
+</form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+<script>
+    function listedData() {
+            var name = document.getElementById("name").value;
+            var surname = document.getElementById("surname").value;
+            var address = document.getElementById("address").value;
+            var email = document.getElementById("email").value;
+
+            var tableBody = document.getElementById("dataTable").getElementsByTagName('tbody')[0];
+            var newRow = tableBody.insertRow(tableBody.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+
+            cell1.innerHTML = name;
+            cell2.innerHTML = surname;
+            cell3.innerHTML = address;
+            cell4.innerHTML = email;
+    }
+</script>
+<script>
+    function generateExcel() {
+
+            var workbook = XLSX.utils.book_new();
+            var worksheet = XLSX.utils.table_to_sheet(document.getElementById("dataTable"));
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+            XLSX.writeFile(workbook, 'veri.xlsx');
+    }
+</script>
+
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+   
+   
+
+   
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>İsim</th>
+                <th>Soyisim</th>
+                <th>Adres</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+</div>
+
